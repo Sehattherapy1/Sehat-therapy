@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sehat Therapy</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #d90429;
+      color: white;
+      position: relative;
+    }
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 0 auto;
+    }
+    .menu-toggle {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+    .side-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      background-color: #f9f9f9;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      z-index: 2000;
+    }
+    .side-menu h2 {
+      color: #d90429;
+    }
+    .side-menu a {
+      display: block;
+      margin: 15px 0;
+      color: #d90429;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .side-menu a .icon {
+      margin-right: 10px;
+    }
+    .dropdown {
+      margin-left: 20px;
+      display: none;
+      flex-direction: column;
+    }
+    .dropdown a {
+      background-color: white;
+      color: black;
+      font-weight: 600;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      text-decoration: none;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    }
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+    .side-menu a.services-toggle::after {
+      content: "▼";
+      float: right;
+    }
+    .hero {
+      background-color: #d90429;
+      color: white;
+      text-align: center;
+      padding: 100px 20px 80px 20px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      margin-top: 15px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup-content {
+      background: white;
+      padding: 30px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    .call-icon-btn {
+      font-size: 2rem;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+    .phone-number {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      display: none;
+    }
+    .slideshow {
+      max-width: 100%;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .slideshow img {
+      width: 90%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Sehat Therapy</div>
+    <div class="menu-toggle" onclick="toggleSideMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <div class="side-menu" id="sideMenu">
+    <h2>Menu</h2>
+    <a href="#" class="services-toggle" onclick="toggleDropdown()">
+      <span class="icon"><i class="fas fa-briefcase-medical"></i></span>Our Services
+    </a>
+    <div class="dropdown" id="servicesDropdown">
+      <a href="#services">Paralysis Treatment</a>
+      <a href="#services">Knee Pain Relief</a>
+      <a href="#services">Acupressure Therapy</a>
+      <a href="#services">Fat Loss Programs</a>
+      <a href="#services">Dieting & Nutrition Guidance</a>
+    </div>
+    <a href="#" class="services-toggle" onclick="toggleContactDropdown()">
+      <span class="icon"><i class="fas fa-phone-alt"></i></span>Contact Us
+    </a>
+    <div class="dropdown" id="contactDropdown">
+      <a href="tel:8962465056">+91 8962465056</a>
+      <a href="https://wa.me/918962465056">Book Appointment</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <h1>Welcome to Sehat Therapy</h1>
+    <p>Healing Hands, Caring Hearts</p>
+  </section>
+
+  <div class="slideshow">
+    <img id="slideImg" src="https://raw.githubusercontent.com/Sehatherapy1/Sehat-therapy/main/images/Diet-Plan.webp" alt="Diet Plan">
+  </div>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <button class="call-icon-btn" onclick="showNumber()"><i class="fas fa-phone-alt"></i></button>
+      <p class="phone-number" id="phoneNumber">+91 8962465056</p>
+    </div>
+  </div>
+
+  <script>
+    function openPopup() {
+      document.getElementById('popup').style.display = 'flex';
+    }
+    function showNumber() {
+      document.getElementById('phoneNumber').style.display = 'block';
+    }
+    function toggleSideMenu() {
+      const menu = document.getElementById('sideMenu');
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+    function toggleDropdown() {
+      const dropdown = document.getElementById('servicesDropdown');
+      dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+    }
+    function toggleContactDropdown() {
+      const dropdown = document.getElementById('contactDropdown');
+      dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+    }
+    window.onclick = function(event) {
+      const popup = document.getElementById('popup');
+      if (event.target == popup) {
+        popup.style.display = "none";
+        document.getElementById('phoneNumber').style.display = 'none';
+      }
+    }
+
+    // Slideshow logic with GitHub image URLs
+    const images = [
+      "https://raw.githubusercontent.com/Sehatherapy1/Sehat-therapy/main/images/Diet-Plan.webp",
+      "https://raw.githubusercontent.com/Sehatherapy1/Sehat-therapy/main/images/MyPyramid-bands-US-Department-of-Agriculture-food-2011.webp",
+      "https://raw.githubusercontent.com/Sehatherapy1/Sehat-therapy/main/images/sehat-therapy-center-makronia-sagar-physiotherapy-centres-lbpny1hj2x.webp"
+    ];
+    let current = 0;
+    setInterval(() => {
+      current = (current + 1) % images.length;
+      document.getElementById("slideImg").src = images[current];
+    }, 2000);
+  </script>
+
+</body>
+</html>
